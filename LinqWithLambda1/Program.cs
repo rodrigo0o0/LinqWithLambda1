@@ -63,7 +63,49 @@ namespace LinqWithLambda1
 
 
             var r8 = products.Where(p => p.Id == 1).SingleOrDefault();
-            Console.WriteLine("Single or default test 1 ", r8);
+            Console.WriteLine("Single or default test 1 " + r8);
+
+            var r9 = products.Where(p => p.Id == 30).SingleOrDefault();
+            Console.WriteLine("Single or default test 2 " +  r9);
+            Console.WriteLine();
+
+            var r10 = products.Max(p => p.Price);
+            Console.WriteLine("Max price " + r10);
+            Console.WriteLine();
+
+            var r11 = products.Min(p => p.Price);
+            Console.WriteLine("Min Price " + r11);
+            Console.WriteLine();
+
+            var r12 = products.Where(p => p.Category.Id == 1).Sum(p => p.Price);
+            Console.WriteLine("Category 1 and sum all products " +  r12); 
+
+            var r13 = products.Where(p => p.Category.Id == 1).Average(p => p.Price);
+            Console.WriteLine("Average tests 1 " + r13);
+            Console.WriteLine();
+
+            var r14 = products.Where(p => p.Category.Id == 30).Select(p => p.Price).DefaultIfEmpty(0.0).Average();
+            Console.WriteLine("Average tests 2 " + r14);
+            Console.WriteLine();
+
+            //mapreduce
+            var r15 = products.Where(p => p.Category.Id == 1).Select(p => p.Price).Aggregate(0.0, (a, b) => a + b);
+            Console.WriteLine("Agregate Sum " + r15);
+            Console.WriteLine();
+
+            var r16 = products.GroupBy(p => p.Category);
+            foreach (var item in r16)
+            {
+                Console.WriteLine("Category " +item.Key.Name);
+                foreach (var item1 in item)
+                {
+                    Console.WriteLine(item1);
+                }
+                Console.WriteLine();
+            }
+            
+
+
             Console.ReadKey();
          
         }
